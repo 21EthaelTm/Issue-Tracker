@@ -38,7 +38,7 @@ export default function RootLayout({
       <body className={inter.variable}>
         <Theme accentColor="violet">
           <NavBar />
-          <main className=" flex justify-center items-center">{children}</main>
+          <main className="p-5">{children}</main>
           
         </Theme>
       </body>

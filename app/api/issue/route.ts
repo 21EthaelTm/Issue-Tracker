@@ -1,11 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { title } from "process";
-import { z } from "zod";
-import {prisma} from '../../../prisma/client'
-const createIssueSchema = z.object({
-  title: z.string().min(1).max(255),
-  description: z.string().min(1),
-});
+import { prisma } from "../../../prisma/client";
+import { createIssueSchema } from "../../validationSchema";
 
 export async function POST(request: NextRequest) {
   const body = await request.json();
@@ -16,10 +12,9 @@ export async function POST(request: NextRequest) {
       { status: 400 }
     );
   }
-  
+
   const newissue = await prisma.issue.create({
-    data:{ title:body.title,
-      description:body.description }
-  })
-      return NextResponse.json(newissue,{status:201})
+    data: { title: body.title, description: body.description },
+  });
+  return NextResponse.json(newissue, { status: 201 });
 }

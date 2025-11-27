@@ -14,7 +14,7 @@ const NavBar = () => {
     <Link href='/'className='hover:font-bold'><IoBugSharp /></Link>
     <ul className='flex space-x-6  mx-5'>
       {list.map(list=>(
-        <Link href={list.href} className = {classnames({
+        <Link key = {list.href}href={list.href} className = {classnames({
             'text-zinc-900':currentPath === list.href,
             'text-zinc-400':currentPath !== list.href,
              'hover:text-zinc-700 ': true

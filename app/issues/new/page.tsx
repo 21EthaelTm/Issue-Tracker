@@ -10,12 +10,15 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { createIssueSchema } from "../../validationSchema";
 import ErrorMessage from "../../components/ErrorMessage";
+import Spinner from '../../components/Spinner'
+
 type Issuetype = z.infer<typeof createIssueSchema>;
 const SimpleMDE = dynamic(() => import("react-simplemde-editor"), {
   ssr: false, // ← This is the key difference
 });
 const newIssuPage = () => {
   const [error, setError] = useState("");
+  const [isSubmitting,setIssubmitting] = useState(false);
   const {
     register,
     handleSubmit,
@@ -35,9 +38,11 @@ const newIssuPage = () => {
         className=" space-y-3"
         onSubmit={handleSubmit(async (data) => {
           try {
+            setIssubmitting(true)
             await axios.post("/api/issue", data);
             router.push("/issues");
           } catch (error) {
+            setIssubmitting(false)
             setError("unexpected error occured ");
           }
         })}
@@ -58,7 +63,7 @@ const newIssuPage = () => {
         />
         <ErrorMessage>{errors.description?.message}</ErrorMessage>
 
-        <Button>Submit New Issue</Button>
+        <Button disabled = {isSubmitting} >Submit New Issue {isSubmitting && <Spinner/>}</Button>
       </form>
     </div>
   );

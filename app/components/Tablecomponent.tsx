@@ -1,6 +1,7 @@
 import React from 'react'
-import { Table } from '@radix-ui/themes'
+import { Badge, Table } from '@radix-ui/themes'
 import { prisma } from "@/prisma/client";
+import IssueStatusBadge from "./IssueStatusBadge"
 const TableComponent = async () => {
   const submitedIssues = await prisma.issue.findMany();
   return (
@@ -17,10 +18,12 @@ const TableComponent = async () => {
 	{submitedIssues.map((issues) =>(
     <Table.Row key={issues.id}>
 			<Table.Cell>{issues.title}
-        <div className="block md:hidden">{issues.status}</div>
-        <div className="block md:hidden">{issues.CreatedAt.toDateString()}</div>
+        <div className="block md:hidden">
+          <IssueStatusBadge status= {issues.status}/>
+        </div>
+        {/* <div className="block md:hidden">{issues.CreatedAt.toDateString()}</div> */}
       </Table.Cell>
-			<Table.Cell className='hidden md:table-cell'>{issues.status}
+			<Table.Cell className='hidden md:table-cell'><IssueStatusBadge status= {issues.status}/>
         
       </Table.Cell>
 			<Table.Cell className='hidden md:table-cell'>{issues.CreatedAt.toDateString()}

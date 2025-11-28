@@ -1,8 +1,10 @@
 import IssueStatusBadge from "@/app/components/IssueStatusBadge";
 import { prisma } from "@/prisma/client";
-import { Card, Heading, Text } from "@radix-ui/themes";
+import { Button, Card, Grid, Heading, Text,Box } from "@radix-ui/themes";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import ReactMarkdown from "react-markdown";
+import { Pencil2Icon} from "@radix-ui/react-icons"
 
 const displaySpecificIssue = async ({
   params,
@@ -16,7 +18,8 @@ const displaySpecificIssue = async ({
   });
   if (!issue) notFound();
   return (
-    <div>
+    <Grid columns={{ initial: "1", md: "2" }} gap='3'>
+      <Box>
       <Heading mb={"3"} as="h2">
         {issue.title}
       </Heading>
@@ -24,10 +27,17 @@ const displaySpecificIssue = async ({
         <IssueStatusBadge status={issue.status} />
         <Text>{issue.CreatedAt.toDateString()}</Text>
       </div>
-      <Card className="w-3xl prose">
+      <Card className=" prose ">
         <ReactMarkdown>{issue.description}</ReactMarkdown>
       </Card>
-    </div>
+      </Box>
+      <Box>
+        <Button>
+          <Pencil2Icon/>
+          <Link href={`/issue/${issue.id}/edit`}>Edit Issue</Link>
+        </Button>
+      </Box>
+    </Grid>
   );
 };
 

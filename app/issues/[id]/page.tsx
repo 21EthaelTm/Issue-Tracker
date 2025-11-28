@@ -1,8 +1,10 @@
+
 import IssueStatusBadge from "@/app/components/IssueStatusBadge";
 import { prisma } from "@/prisma/client";
-import { Table } from "@radix-ui/themes";
+import { Card, Heading, Table, Text } from "@radix-ui/themes";
 import { notFound } from "next/navigation";
 import React from "react";
+import ReactMarkdown from 'react-markdown'
 
 const displaySpecificIssue = async ({
   params,
@@ -15,36 +17,13 @@ const displaySpecificIssue = async ({
   });
   if (!issue) notFound();
   return (
-    <div>
-      <Table.Root variant="surface">
-        <Table.Header>
-          <Table.Row>
-            <Table.ColumnHeaderCell>ID</Table.ColumnHeaderCell>
-            <Table.ColumnHeaderCell>Title</Table.ColumnHeaderCell>
-            <Table.ColumnHeaderCell>Description</Table.ColumnHeaderCell>
-            <Table.ColumnHeaderCell>Status</Table.ColumnHeaderCell>
-            <Table.ColumnHeaderCell>CreatedAT</Table.ColumnHeaderCell>
-            <Table.ColumnHeaderCell>UpdatedAT</Table.ColumnHeaderCell>
-          </Table.Row>
-        </Table.Header>
-        <Table.Body>
-          <Table.Row>
-            <Table.Cell>{issue?.id}</Table.Cell>
-            <Table.Cell>
-              {issue?.title}
-              {/* <div className="block md:hidden">
-          <IssueStatusBadge status= {issue?.status!}/>
-        </div> */}
-            </Table.Cell>
-            <Table.Cell>{issue?.description}</Table.Cell>
-            <Table.Cell>
-              <IssueStatusBadge status={issue?.status!} />
-            </Table.Cell>
-            <Table.Cell>{issue?.CreatedAt.toDateString()} </Table.Cell>
-            <Table.Cell>{issue?.UpdatedAT.toDateString()}</Table.Cell>
-          </Table.Row>
-        </Table.Body>
-      </Table.Root>
+    <div >
+    <Heading mb={"3"} as = "h2">{issue.title}</Heading>
+    <div className=" flex gap-3 mb-3">
+    <IssueStatusBadge status={issue.status} />
+      <Text>{issue.CreatedAt.toDateString()}</Text>
+    </div>
+     <Card className="w-3xl prose"><ReactMarkdown>{issue.description}</ReactMarkdown></Card>
     </div>
   );
 };

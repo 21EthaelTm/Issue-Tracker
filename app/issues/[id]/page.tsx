@@ -5,6 +5,8 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import ReactMarkdown from "react-markdown";
 import { Pencil2Icon} from "@radix-ui/react-icons"
+import EditIssueButton from "./EditIssueButton";
+import IssueDetails from "./IssueDetails";
 
 const displaySpecificIssue = async ({
   params,
@@ -20,22 +22,10 @@ const displaySpecificIssue = async ({
   return (
     <Grid columns={{ initial: "1", md: "2" }} gap='3'>
       <Box>
-      <Heading mb={"3"} as="h2">
-        {issue.title}
-      </Heading>
-      <div className=" flex gap-3 mb-3 items-center">
-        <IssueStatusBadge status={issue.status} />
-        <Text>{issue.CreatedAt.toDateString()}</Text>
-      </div>
-      <Card className=" prose ">
-        <ReactMarkdown>{issue.description}</ReactMarkdown>
-      </Card>
+      <IssueDetails issue={issue}/>
       </Box>
       <Box>
-        <Button>
-          <Pencil2Icon/>
-          <Link href={`/issue/${issue.id}/edit`}>Edit Issue</Link>
-        </Button>
+        <EditIssueButton IssueId={issue.id}/>
       </Box>
     </Grid>
   );

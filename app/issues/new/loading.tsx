@@ -1,9 +1,14 @@
-import React from 'react'
-
-const loadingNewIssuePage = () => {
+import { Box } from "@radix-ui/themes";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
+const LoadingNewIssuePage = () => {
   return (
-    <div>Loading...</div>
-  )
-}
+    <Box className="max-w-lg">
+      <Skeleton></Skeleton>
+      <Skeleton height="20em"></Skeleton>
+    </Box>
+    
+  );
+};
 
-export default loadingNewIssuePage
+export default LoadingNewIssuePage;

@@ -10,11 +10,11 @@ import { Controller, useForm } from "react-hook-form";
 import { z } from "zod";
 import ErrorMessage from "../../components/ErrorMessage";
 import Spinner from "../../components/Spinner";
-import { createIssueSchema } from "../../validationSchema";
+import { IssueSchema } from "../../validationSchema";
 import { Issue } from "@/app/generated/prisma/client";
 
 
-type Issuetype = z.infer<typeof createIssueSchema>;
+type Issuetype = z.infer<typeof IssueSchema>;
 const SimpleMDE = dynamic(() => import("react-simplemde-editor"), {
   ssr: false, // ← This is the key difference
 });
@@ -26,7 +26,7 @@ const IssueForm = ({ issue }: { issue?: Issue }) => {
     handleSubmit,
     control,
     formState: { errors },
-  } = useForm<Issuetype>({ resolver: zodResolver(createIssueSchema) });
+  } = useForm<Issuetype>({ resolver: zodResolver(IssueSchema) });
   const router = useRouter();
   const OnSubmit = handleSubmit(async (data) => {
     try {

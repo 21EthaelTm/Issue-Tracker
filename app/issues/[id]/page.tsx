@@ -19,7 +19,7 @@ const displaySpecificIssue = async ({
   return (
     <div >
     <Heading mb={"3"} as = "h2">{issue.title}</Heading>
-    <div className=" flex gap-3 mb-3">
+    <div className=" flex gap-3 mb-3 items-center">
     <IssueStatusBadge status={issue.status} />
       <Text>{issue.CreatedAt.toDateString()}</Text>
     </div>

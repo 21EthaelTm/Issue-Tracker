@@ -2,6 +2,7 @@ import { IssueStatusBadge } from '@/app/components'
 import { Issue } from '@/app/generated/prisma/client'
 import { Card, Heading, Text } from '@radix-ui/themes'
 import ReactMarkdown from 'react-markdown'
+import DeleteIssueButton from './DeleteIssueButton'
 
 const IssueDetails = ({issue}:{issue:Issue}) => {
   return (
@@ -13,7 +14,7 @@ const IssueDetails = ({issue}:{issue:Issue}) => {
         <IssueStatusBadge status={issue.status} />
         <Text>{issue.CreatedAt.toDateString()}</Text>
       </div>
-      <Card className=" prose ">
+      <Card className=" prose max-w-full">
         <ReactMarkdown>{issue.description}</ReactMarkdown>
       </Card>
       </>

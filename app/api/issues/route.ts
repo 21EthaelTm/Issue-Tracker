@@ -2,6 +2,9 @@ import { NextRequest, NextResponse } from "next/server";
 import { title } from "process";
 import { prisma } from "../../../prisma/client";
 import { IssueSchema } from "../../validationSchema";
+import next from "next";
+import { error } from "console";
+import { success } from "zod";
 
 export async function POST(request: NextRequest) {
   const body = await request.json();
@@ -18,3 +21,4 @@ export async function POST(request: NextRequest) {
   });
   return NextResponse.json(newissue, { status: 201 });
 }
+

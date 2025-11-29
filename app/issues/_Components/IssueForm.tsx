@@ -12,12 +12,9 @@ import ErrorMessage from "../../components/ErrorMessage";
 import Spinner from "../../components/Spinner";
 import { IssueSchema } from "../../validationSchema";
 import { Issue } from "@/app/generated/prisma/client";
-
+import SimpleMDE from 'react-simplemde-editor'
 
 type Issuetype = z.infer<typeof IssueSchema>;
-const SimpleMDE = dynamic(() => import("react-simplemde-editor"), {
-  ssr: false, // ← This is the key difference
-});
 const IssueForm = ({ issue }: { issue?: Issue }) => {
   const [error, setError] = useState("");
   const [isSubmitting, setIssubmitting] = useState(false);
@@ -70,7 +67,7 @@ const IssueForm = ({ issue }: { issue?: Issue }) => {
         <ErrorMessage>{errors.description?.message}</ErrorMessage>
 
         <Button disabled={isSubmitting}>
-          {issue? "Update issue": "Submit New Issue"} {isSubmitting && <Spinner />}
+          {issue? "Update issue": "Submit New Issue"}{' '} {isSubmitting && <Spinner />}
         </Button>
       </form>
     </div>

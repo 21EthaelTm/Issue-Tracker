@@ -6,7 +6,7 @@ import { usePathname } from 'next/navigation';
 import { IoBugSharp } from "react-icons/io5";
 const NavBar = () => {
     const list =[{href:"/",label:'Dashboard'},
-        {href:'/issues',label:'Issues'}
+        {href:'/issues/list',label:'Issues'}
     ]
     const currentPath = usePathname()
   return (

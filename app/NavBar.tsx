@@ -5,7 +5,7 @@ import classnames from "classnames";
 import { usePathname } from "next/navigation";
 import { IoBugSharp } from "react-icons/io5";
 import { useSession } from "next-auth/react";
-//import "@radix-ui/themes/styles.css";
+import {Skeleton} from "@/app/components"
 
 
 
@@ -46,6 +46,7 @@ const NavBar = () => {
           </ul>
         </Flex>
         <Box>
+          {status ==="loading" && <Skeleton width="3rem"/>}
           {status === "authenticated" && (
             <DropdownMenu.Root>
               <DropdownMenu.Trigger>

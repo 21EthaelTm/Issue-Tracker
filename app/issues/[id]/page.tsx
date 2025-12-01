@@ -25,7 +25,7 @@ const displaySpecificIssue = async ({
       </Box>
       { session && <Box>
         <Flex direction="column" gap="4">
-          <AssignSelect/>
+          <AssignSelect issue={issue}/>
         <EditIssueButton IssueId={issue.id}/>
         <DeleteIssueButton IssueId={issue.id}/>
         </Flex>

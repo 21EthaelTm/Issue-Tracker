@@ -5,7 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import {Skeleton} from "@/app/components"
 import React, { useEffect, useState } from "react";
-
+import toast, {Toaster} from 'react-hot-toast'
 const AssignSelect = ({issue}:{issue:Issue}) => {
 	const { error, data,isLoading} = useQuery<User[]>({
 		queryKey: ['users'],
@@ -19,9 +19,13 @@ if(isLoading){
 if(error) return null;
 
   return (
-    <Select.Root  onValueChange={(userId)=>{
-		axios.patch('/api/issues/' + issue.id,{assignedToUserId:userId || null})
-	}}>
+    <>
+    <Select.Root 
+     onValueChange={async(userId)=>{
+      const  assignedToUserId = userId === "unassigned" ? null : userId
+		 axios.patch('/api/issues/' + issue.id,{assignedToUserId 
+}).catch(()=> toast.error('change cant be processed'))
+	}}> 
       <Select.Trigger placeholder="Assignee.." />
       <Select.Content>
         <Select.Group>
@@ -35,6 +39,8 @@ if(error) return null;
         </Select.Group>
       </Select.Content>
     </Select.Root>
+       <Toaster/>
+    </>
   );
 };
 

@@ -1,16 +1,17 @@
 import { prisma } from "@/prisma/client";
-import { AlertDialog, Box, Button, Flex, Grid } from "@radix-ui/themes";
+import { Box, Flex, Grid } from "@radix-ui/themes";
 import { notFound } from "next/navigation";
+import DeleteIssueButton from "./DeleteIssueButton";
 import EditIssueButton from "./EditIssueButton";
 import IssueDetails from "./IssueDetails";
-import DeleteIssueButton from "./DeleteIssueButton";
-import axios from "axios";
+import { getServerSession } from "next-auth";
+import authoption from "@/app/auth/authoption";
 const displaySpecificIssue = async ({
   params,
 }: {
   params: Promise<{ id: string }>;
 }) => {
- 
+  const session =await getServerSession(authoption)
   const id = (await params).id;
   const issue = await prisma.issue.findUnique({
     where: { id: parseInt(id) },
@@ -21,12 +22,12 @@ const displaySpecificIssue = async ({
       <Box className="md:col-span-4">
       <IssueDetails issue={issue}/>
       </Box>
-      <Box>
+      { session && <Box>
         <Flex direction="column" gap="4">
         <EditIssueButton IssueId={issue.id}/>
         <DeleteIssueButton IssueId={issue.id}/>
         </Flex>
-      </Box>
+      </Box>}
     </Grid>
   );
 };

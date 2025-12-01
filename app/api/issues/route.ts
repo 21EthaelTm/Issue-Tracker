@@ -5,8 +5,12 @@ import { IssueSchema } from "../../validationSchema";
 import next from "next";
 import { error } from "console";
 import { success } from "zod";
+import { getServerSession } from "next-auth";
+import authoption from "@/app/auth/authoption";
 
 export async function POST(request: NextRequest) {
+  const session = await getServerSession(authoption);
+  if (!session) NextResponse.json({}, { status: 401 });
   const body = await request.json();
   const validation = IssueSchema.safeParse(body);
   if (!validation.success) {
@@ -21,4 +25,3 @@ export async function POST(request: NextRequest) {
   });
   return NextResponse.json(newissue, { status: 201 });
 }
-

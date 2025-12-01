@@ -18,8 +18,6 @@ const NavBar = () => {
   ];
   const { status, data: session } = useSession();
   const currentPath = usePathname();
-  console.log(session);
-
   return (
     <nav className=" text-black border-b mb-4 h-16 py-5 border-b-gray-300 ">
       <Container>

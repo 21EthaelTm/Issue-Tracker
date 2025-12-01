@@ -1,10 +1,7 @@
 // 'use client'
-import { Issue } from "@/app/generated/prisma/client";
-import React from "react";
-import IssueForm from "../../_Components/IssueForm";
-import { string } from "zod";
 import { prisma } from "@/prisma/client";
 import { notFound } from "next/navigation";
+import IssueForm from "../../_Components/IssueForm";
 // import dynamic from "next/dynamic";
 // import IssueFormSkeleton from "./loading";
 // const IssueForm = dynamic(() => import("../../_Components/IssueForm"), {

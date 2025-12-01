@@ -6,6 +6,7 @@ import "./globals.css";
 import NavBar from "./NavBar";
 import "./theme-config.css";
 import AuthProvider from "./auth/Provider";
+import ReactQueryClient from "./ReactQuery";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -35,6 +36,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.variable}>
+        <ReactQueryClient>
         <AuthProvider>
         <Theme accentColor="violet">
           <NavBar />
@@ -44,6 +46,7 @@ export default function RootLayout({
           </main>
         </Theme>
         </AuthProvider>
+        </ReactQueryClient>
       </body>
     </html>
   );

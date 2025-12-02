@@ -10,7 +10,7 @@ interface props{
   searchParams: Promise<{status:Status,orderBy:keyof Issue}>
   issues:Issue[]
 }
-const colomuns: {
+export const colomuns: {
   local: string;
   value: keyof Issue;
   classname?: string;

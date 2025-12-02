@@ -5,7 +5,7 @@ import { Badge } from '@radix-ui/themes'
 const statusBadge :Record<Status,{label:string,color:'red'|'green'|'violet'}> = {
     closed:{label:'closed',color:'green'},
     open : {label:'open',color:'red'},
-    In_prograss : {label: "In_prograss",color:'violet'}
+    In_progress : {label: "In_progress",color:'violet'}
 }
 const IssueStatusBadge = ({status}:{status:Status}) => {
   return (

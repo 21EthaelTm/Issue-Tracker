@@ -1,43 +1,56 @@
 import { prisma } from "@/prisma/client";
 import { Table } from "@radix-ui/themes";
-import { IssueStatusBadge, Link } from "../../components/index";
+import { IssueStatusBadge } from "../../components/index";
 import { Status } from "@/app/generated/prisma/enums";
+import { Issue } from "@/app/generated/prisma/client";
+import Link from 'next/link'
+import { ArrowUpIcon } from "@radix-ui/react-icons";
 
-const TableComponent = async ({props}:{props?:Status}) => {
-  const submitedIssues = await prisma.issue.findMany({
-    where:{status:props}
-  });
+interface props{
+  searchParams: Promise<{status:Status,orderBy:keyof Issue}>
+  issues:Issue[]
+}
+const colomuns: {
+  local: string;
+  value: keyof Issue;
+  classname?: string;
+}[] = [
+  { local: "Issue", value: "title" },
+  { local: "status", value: "status", classname: "hidden md:table-cell" },
+  { local: "Created", value: "CreatedAt", classname: "hidden md:table-cell" },
+];
+
+const TableComponent = async ({issues,searchParams}:props) => {
+ const params = await searchParams;
+ 
   //console.log(submitedIssues)
   return (
     <Table.Root variant="surface">
       <Table.Header>
         <Table.Row>
-          <Table.ColumnHeaderCell>Issue</Table.ColumnHeaderCell>
-          <Table.ColumnHeaderCell className="hidden md:table-cell">
-            status
-          </Table.ColumnHeaderCell>
-          <Table.ColumnHeaderCell className="hidden md:table-cell">
-            CreatedAT
-          </Table.ColumnHeaderCell>
+          {colomuns.map((list) => (
+            <Table.ColumnHeaderCell key={list.value} className={list.classname}>
+             <Link href={{query:{...params,orderBy:list.value}}}> {list.local} </Link>{list.value===params.orderBy && <ArrowUpIcon className="inline"/>}
+            </Table.ColumnHeaderCell>
+          ))}
         </Table.Row>
       </Table.Header>
 
       <Table.Body>
-        {submitedIssues.map((issues) => (
-          <Table.Row key={issues.id}>
+        {issues.map((issue) => (
+          <Table.Row key={issue.id}>
             <Table.Cell>
-              {" "}
-              <Link href={`/issues/${issues.id}`}>{issues.title}</Link>
+           
+              <Link href={`/issues/${issue.id}`}>{issue.title}</Link>
               <div className="block md:hidden">
-                <IssueStatusBadge status={issues.status} />
+                <IssueStatusBadge status={issue.status} />
               </div>
-              {/* <div className="block md:hidden">{issues.CreatedAt.toDateString()}</div> */}
             </Table.Cell>
             <Table.Cell className="hidden md:table-cell">
-              <IssueStatusBadge status={issues.status} />
+              <IssueStatusBadge status={issue.status} />
             </Table.Cell>
             <Table.Cell className="hidden md:table-cell">
-              {issues.CreatedAt.toDateString()}
+              {issue.CreatedAt.toDateString()}
             </Table.Cell>
           </Table.Row>
         ))}

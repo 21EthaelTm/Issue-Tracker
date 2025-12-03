@@ -21,14 +21,14 @@ const Pagination = ({ itemCount, currentPage, pageSize }: props) => {
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  if (pageCount < 1) return null;
+  if (pageCount <= 1) return null;
   const changePage = ((page:number) =>{
       const params = new URLSearchParams(searchParams);
       params.set('page',page.toString())
       router.push("?" + params.toString())
   })
   return (
-    <Flex align="center" gap="3">
+    <Flex align="center" gap="3" className="mt-6" justify="center">
       <Text size='2'>
         page {currentPage} of {pageCount}{" "}
       </Text>

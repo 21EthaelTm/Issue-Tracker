@@ -61,7 +61,7 @@ const NavBar = () => {
             </DropdownMenu.Root>
           )}
           {status === "unauthenticated" && (
-            <Link href="http://localhost:3000/api/auth/signin">Signin</Link>
+            <Link className="text-zinc-400 hover:text-zinc-900" href="http://localhost:3000/api/auth/signin">Signin</Link>
           )}
         </Box>
         </Flex>

@@ -2,17 +2,19 @@ import { Button, Flex, ThemePanel } from '@radix-ui/themes'
 import Link from 'next/link'
 import React from 'react'
 import IssueFilterByStatus from './IssueFilterByStatus'
-
-const IssuesAction = () => {
+import { getServerSession } from "next-auth";
+import authoption from "@/app/auth/authoption";
+const IssuesAction = async () => {
+  const session = await getServerSession(authoption);
   return (
     
       <Flex justify="between" mb="5">
       
       <IssueFilterByStatus/>
      
-      <Button>
+     {session && <Button>
         <Link href="/issues/new">New Issues</Link>
-      </Button>
+      </Button>}
       </Flex>
       
   )

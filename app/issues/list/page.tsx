@@ -5,6 +5,7 @@ import { Issue } from "@/app/generated/prisma/browser";
 import { prisma } from "@/prisma/client";
 import { colomuns } from "../_Components/Tablecomponent";
 import Pagination from "@/app/components/Pagination";
+import { Metadata } from "next";
 interface props {
   searchParams: Promise<{ status: Status; orderBy: keyof Issue,page:string }>;
 }
@@ -36,5 +37,8 @@ const IssuePage = async ({ searchParams }: props) => {
     </div>
   );
 };
-
+export const  metadata:Metadata ={
+  title:'Issue Tracker -Issue List',
+  description:'view all project issues'
+}
 export default IssuePage;

@@ -5,11 +5,14 @@ import { Status } from "@/app/generated/prisma/enums";
 import { Issue } from "@/app/generated/prisma/client";
 import Link from 'next/link'
 import { ArrowUpIcon } from "@radix-ui/react-icons";
-
+import { getServerSession } from "next-auth";
+import { AuthOptions } from "next-auth";
+import authoption from "@/app/auth/authoption";
 interface props{
   searchParams: Promise<{status:Status,orderBy:keyof Issue}>
   issues:Issue[]
 }
+
 export const colomuns: {
   local: string;
   value: keyof Issue;
@@ -21,6 +24,8 @@ export const colomuns: {
 ];
 
 const TableComponent = async ({issues,searchParams}:props) => {
+  const session = await getServerSession(authoption)
+ 
  const params = await searchParams;
  
   //console.log(submitedIssues)
@@ -41,7 +46,7 @@ const TableComponent = async ({issues,searchParams}:props) => {
           <Table.Row key={issue.id}>
             <Table.Cell>
            
-              <Link href={`/issues/${issue.id}`}>{issue.title}</Link>
+              <Link href={session?.user.isAdmin ?`/issues/admin/${issue.id}`:`/issues/${issue.id}`}>{issue.title}</Link>
               <div className="block md:hidden">
                 <IssueStatusBadge status={issue.status} />
               </div>

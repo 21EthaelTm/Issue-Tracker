@@ -6,6 +6,7 @@ import { getServerSession } from "next-auth";
 import authoption from "@/app/auth/authoption";
 const IssuesAction = async () => {
   const session = await getServerSession(authoption);
+  
   return (
     
       <Flex justify="between" mb="5">

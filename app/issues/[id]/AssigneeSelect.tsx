@@ -20,13 +20,13 @@ if(error) return null;
 
   return (
     <>
-    <Select.Root 
+    <Select.Root defaultValue={issue.assignedToUserId?? "unassigned"}
      onValueChange={async(userId)=>{
       const  assignedToUserId = userId === "unassigned" ? null : userId
 		 axios.patch('/api/issues/' + issue.id,{assignedToUserId 
 }).catch(()=> toast.error('change cant be processed'))
 	}}> 
-      <Select.Trigger placeholder="Assignee.." />
+      <Select.Trigger  />
       <Select.Content>
         <Select.Group>
           <Select.Label>assignee</Select.Label>

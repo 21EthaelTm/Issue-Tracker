@@ -5,12 +5,14 @@ import ReactMarkdown from 'react-markdown'
 import DeleteIssueButton from './DeleteIssueButton'
 
 const IssueDetails = ({issue}:{issue:Issue}) => {
+
   return (
     <>
     <Heading mb={"3"} as="h2">
         {issue.title}
       </Heading>
       <div className=" flex gap-3 mb-3 items-center">
+
         <IssueStatusBadge status={issue.status} />
         <Text>{issue.CreatedAt.toDateString()}</Text>
       </div>

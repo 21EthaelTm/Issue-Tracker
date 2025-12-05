@@ -11,12 +11,13 @@ import {Skeleton} from "@/app/components"
 
 import { Avatar, Box, Button, Container, DropdownMenu, Flex,Text } from "@radix-ui/themes";
 const NavBar = () => {
-
+const { status, data: session } = useSession();
+console.log(session?.user.isAdmin)
   const list = [
     { href: "/", label: "Dashboard" },
-    { href: "/issues/list", label: "Issues" },
+    { href: session?.user.isAdmin ? '/issues/admin':'/issues/list', label: "Issues" },
   ];
-  const { status, data: session } = useSession();
+  
   const currentPath = usePathname();
   return (
     <nav className=" text-black border-b mb-4 h-16 py-5 border-b-gray-300 ">
